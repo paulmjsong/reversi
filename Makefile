@@ -2,10 +2,10 @@
 all: reversi
 
 reversi: reversi.o
-  gcc -o reversi reversi.o
+	gcc reversi.o -o reversi
 
-reversi.o: keep.c
-	gcc -o reversi.o -g -c keep.c
+reversi.o: reversi.c
+	gcc -g -c reversi.c -o reversi.o
 
 .PHONY: clean
 clean:
