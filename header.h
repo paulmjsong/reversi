@@ -46,6 +46,31 @@ int listen_at_port (int portnum)
 	return conn_fd ;
 }
 
+void chat_server (int conn_fd)
+{
+        char buf[256] ;
+
+        do {
+                int s ;
+
+                while ( (s = recv(conn_fd, buf, 255, 0)) == 0 ) ;
+                if (s == -1)
+                        break ;
+
+                buf[s] = '\0' ;
+                printf(">%s\n", buf) ;
+
+
+                fgets(buf, 256, stdin) ;
+                buf[strlen(buf) - 1] = '\0' ;
+                if (strcmp(buf, "quit()") == 0)
+                        break ;
+
+                send(conn_fd, buf, strlen(buf), 0) ;
+
+        } while (strcmp(buf, "quit()") != 0) ;
+}
+
 /* ------ CLIENT ------ */
 
 int connect_ipaddr_port (const char * ip, int port)
@@ -76,4 +101,26 @@ int connect_ipaddr_port (const char * ip, int port)
 		exit(EXIT_FAILURE) ;
 	}
 	return sock_fd ;
+}
+
+void chat_client (int conn_fd)
+{
+        char buf[256] ;
+
+        do {
+                fgets(buf, 256, stdin) ;
+                buf[strlen(buf) - 1] = '\0' ;
+                if (strcmp(buf, "quit()") == 0)
+                        break ;
+
+                send(conn_fd, buf, strlen(buf), 0) ;
+
+                int s ;
+                while ((s = recv(conn_fd, buf, 1024, 0)) == 0) ;
+                if (s == -1)
+                        break ;
+                buf[s] = '\0' ;
+
+                printf(">%s\n", buf) ;
+        } while (strcmp(buf, "quit()") != 0) ;
 }
