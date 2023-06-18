@@ -12,6 +12,8 @@
 #define X_MID (X1 + 3 * 2)
 
 
+/* ------ SCREEN ------ */
+
 void init_screen(void) {
     initscr() ;
     if (has_colors() == FALSE) {
@@ -30,6 +32,8 @@ void cleanup_screen(void) {
     endwin();
 }
 
+/* ------ BOARD ------ */
+
 void rectangle(int y1, int x1, int y2, int x2) {
     mvhline(y1, x1, 0, x2-x1);
     mvhline(y2, x1, 0, x2-x1);
@@ -39,6 +43,18 @@ void rectangle(int y1, int x1, int y2, int x2) {
     mvaddch(y2, x1, ACS_LLCORNER);
     mvaddch(y1, x2, ACS_URCORNER);
     mvaddch(y2, x2, ACS_LRCORNER);
+}
+
+void init_board(char board[8][8]) {
+    for (int i = 0; i < 8; i++) {
+      for (int j = 0; j < 8; j++) {
+        board[i][j] = '.';
+      }
+    }
+    board[3][3] = 'w';
+    board[4][4] = 'w';
+    board[3][4] = 'b';
+    board[4][3] = 'b';
 }
 
 void print_board(char board[8][8]) {
@@ -64,6 +80,8 @@ void print_board(char board[8][8]) {
     
     rectangle(Y1 - 1, X1 - 2, Y2 + 1, X2 + 2);
 }
+
+/* ------ GAME ------ */
 
 int flip(int y, int x, char ch, char board[8][8]) {
     if (board[y][x] == '.') return 0;
@@ -151,6 +169,8 @@ void make_move(char whoAmI, char board[8][8]) {
     }
 }
 
+/* ------ PLAY ------ */
+
 void play(int conn_fd, char whoAmI) {
     // setup game
     init_screen();
@@ -158,14 +178,15 @@ void play(int conn_fd, char whoAmI) {
     move(Y1 - 3, X1 - 2);
     printw("REVERSI");
     move(Y2 + 3, X1 - 2);
-    printw("REVERSI");
-
-    char board[8][8] = {'.'};
-    board[3][3] = 'w';
-    board[4][4] = 'w';
-    board[3][4] = 'b';
-    board[4][3] = 'b';
+    printw("Client's turn!");
     
+    move(Y1, X2 + 4);
+    printw("press <space> to place disk");
+    move(Y1 + 2, X2 + 4);
+    printw("press <q> to quit");
+
+    char board[8][8];
+    init_board(board);
     print_board(board);
     
     move(Y_MID, X_MID);
