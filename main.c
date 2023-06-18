@@ -5,7 +5,6 @@
 #include <ncurses.h>
 
 #include "header.h"
-#include "reversi.h"
 
 
 int main(int argc, char * argv[]) {
