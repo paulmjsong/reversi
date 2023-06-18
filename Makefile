@@ -7,7 +7,7 @@ reversi: main.o play.o
 main.o: main.c header.h
 	gcc -g -c main.c -o main.o
 
-play.o: play.c
+play.o: play.c header.h
 	gcc -g -c play.c -o play.o
 
 .PHONY: clean
