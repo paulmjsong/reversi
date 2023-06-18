@@ -84,7 +84,7 @@ void print_board(char board[8][8]) {
 /* ------ GAME ------ */
 
 int is_legal_move(int y, int x, char ch, char board[8][8]) {
-    if (board[y - Y1][x / 2 - X1] != '.')
+    if (board[y - Y1][(x - X1) / 2] != '.')
         return 0;
 
     // Check if any adjacent opponent's disc can be flipped
