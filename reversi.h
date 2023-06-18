@@ -177,7 +177,7 @@ void play(int conn_fd, char whoAmI) {
     init_screen();
     
     move(Y1 - 3, X1 - 2);
-    printw("REVERSI");
+    printw("   R E V E R S I   ");
     
     move(Y1, X2 + 5);
     printw("Client's turn!");
@@ -198,6 +198,11 @@ void play(int conn_fd, char whoAmI) {
         do {
             // receive client move
             receive_move(conn_fd, board);
+            
+            move(Y1, X2 + 5);
+            clrtoeol();
+            printw("Server's turn!");
+            
             refresh();
             
             // send server move
@@ -215,6 +220,11 @@ void play(int conn_fd, char whoAmI) {
             
             // receive server move
             receive_move(conn_fd, board);
+            
+            move(Y1, X2 + 5);
+            clrtoeol();
+            printw("Client's turn!");
+            
             refresh();
             
         } while (1);
