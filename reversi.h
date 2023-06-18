@@ -3,7 +3,7 @@
 #include <ctype.h>
 #include <ncurses.h>
 
-#define Y1 5
+#define Y1 4
 #define X1 5
 #define Y2 (Y1 + 7)
 #define X2 (X1 + 7 * 2)
@@ -62,16 +62,16 @@ void print_board(char board[8][8]) {
 //    init_pair(1, COLOR_BLUE, COLOR_BLACK);
 //    init_pair(2, COLOR_WHITE, COLOR_BLACK);
     
-    for (int i = Y1; i < Y1 + 8; i++) {
-        for (int j = X1; j < X1 + 8 * 2; j+=2) {
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j+=2) {
             if (board[i][j] == '.') {
-                mvaddch(i, j, '.');
+                mvaddch(Y1 + i, X1 + j * 2, '.');
             } else if (board[i][j] == 'b') {
 //                attron(COLOR_PAIR(1));
-                mvaddch(i, j, 'b');
+                mvaddch(Y1 + i, X1 + j * 2, 'b');
             } else {
 //                attron(COLOR_PAIR(2));
-                mvaddch(i, j, 'w');
+                mvaddch(Y1 + i, X1 + j * 2, 'w');
             }
         }
     }
@@ -178,12 +178,12 @@ void play(int conn_fd, char whoAmI) {
     
     move(Y1 - 3, X1 - 2);
     printw("REVERSI");
-    move(Y2 + 3, X1 - 2);
-    printw("Client's turn!");
     
-    move(Y1, X2 + 4);
+    move(Y1, X2 + 5);
+    printw("Client's turn!");
+    move(Y1 + 2, X2 + 5);
     printw("press <space> to place disk");
-    move(Y1 + 2, X2 + 4);
+    move(Y1 + 4, X2 + 5);
     printw("press <q> to quit");
 
     char board[8][8];
