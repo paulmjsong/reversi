@@ -97,8 +97,8 @@ int is_legal_move(int y, int x, char ch, char board[8][8]) {
             int cx = x + dx;
             int flipped = 0;
 
-            while (cy >= Y1 && cy <= Y2 && cx >= X1 && cx <= X2 && board[cy - Y1][cx / 2 - X1] != '.') {
-                if (board[cy - Y1][cx / 2 - X1] == ch) {
+            while (cy >= Y1 && cy <= Y2 && cx >= X1 && cx <= X2 && board[cy - Y1][(cx - X1) / 2] != '.') {
+                if (board[cy - Y1][(cx - X1) / 2] == ch) {
                     flipped = 1;
                     break;
                 }
@@ -112,7 +112,7 @@ int is_legal_move(int y, int x, char ch, char board[8][8]) {
 }
 
 void make_move(int y, int x, char ch, char board[8][8]) {
-    board[y - Y1][x / 2 - X1] = ch;
+    board[y - Y1][(x - X1) / 2] = ch;
 
     // Flip opponent's discs in all directions
     for (int dy = -1; dy <= 1; dy++) {
@@ -124,8 +124,8 @@ void make_move(int y, int x, char ch, char board[8][8]) {
             int cx = x + dx;
             int flipped = 0;
 
-            while (cy >= Y1 && cy <= Y2 && cx >= X1 && cx <= X2 && board[cy - Y1][cx / 2 - X1] != '.') {
-                if (board[cy - Y1][cx / 2 - X1] == ch) {
+            while (cy >= Y1 && cy <= Y2 && cx >= X1 && cx <= X2 && board[cy - Y1][(cx - X1) / 2] != '.') {
+                if (board[cy - Y1][(cx - X1) / 2] == ch) {
                     flipped = 1;
                     break;
                 }
@@ -137,7 +137,7 @@ void make_move(int y, int x, char ch, char board[8][8]) {
                 cx -= dx;
 
                 while (cy != y || cx != x) {
-                    board[cy - Y1][cx / 2 - X1] = ch;
+                    board[cy - Y1][(cx - X1) / 2] = ch;
                     cy -= dy;
                     cx -= dx;
                 }
