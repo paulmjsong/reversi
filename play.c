@@ -258,7 +258,7 @@ void play(int conn_fd, char whoAmI) {
     else {
         do {
             // send client move
-            make_move(whoAmI, board);
+            get_input(whoAmI, board);
             send(conn_fd, board, sizeof(board), 0);
             
             move(Y2 + 3, X1 - 2);
