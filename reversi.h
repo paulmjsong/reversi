@@ -3,13 +3,13 @@
 #include <ctype.h>
 #include <ncurses.h>
 
-const int Y1 = 5;
-const int X1 = 5;
-const int Y2 = Y1 + 7;
-const int X2 = X1 + 7 * 2;
+#define Y1 5
+#define X1 5
+#define Y2 (Y1 + 7)
+#define X2 (X1 + 7 * 2)
 
-const int Y_MID = Y1 + 3;
-const int X_MID = X1 + 3 * 2;
+#define Y_MID (Y1 + 3)
+#define X_MID (X1 + 3 * 2)
 
 
 void init_screen(void) {
@@ -133,7 +133,7 @@ void make_move(char whoAmI, char board[8][8]) {
                     mvaddch(y, x, whoAmI);
                     finished = 1;
                 } else {
-                    move(Y1 + 3, X1 - 2);
+                    move(Y2 + 3, X1 - 2);
                     clrtoeol();
                     printw("Illegal move!");
                 }
@@ -141,7 +141,7 @@ void make_move(char whoAmI, char board[8][8]) {
             case 'q':
                 exit(1);
             default:
-                move(Y1 + 3, X1 - 2);
+                move(Y2 + 3, X1 - 2);
                 clrtoeol();
                 printw("Invalid input!");
                 break ;
@@ -154,6 +154,11 @@ void make_move(char whoAmI, char board[8][8]) {
 void play(int conn_fd, char whoAmI) {
     // setup game
     init_screen();
+    
+    move(Y1 - 3, X1 - 2);
+    printw("REVERSI");
+    move(Y2 + 3, X1 - 2);
+    printw("REVERSI");
 
     char board[8][8] = {'.'};
     board[3][3] = 'w';
