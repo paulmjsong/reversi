@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <ncurses.h>
+#include "header.h"
 
 #define Y1 4
 #define X1 5
