@@ -182,7 +182,7 @@ void get_input(char whoAmI, char board[8][8]) {
             case ' ':
                 if (is_legal_move(y, x, whoAmI, board)) {
                     make_move(y, x, whoAmI, board);
-                    mvaddch(y, x, whoAmI);
+                    print_board(board);
                     finished = 1;
                 } else {
                     move(Y2 + 3, X1 - 2);
@@ -241,6 +241,7 @@ void play(int conn_fd, char whoAmI) {
             
             // send server move
             get_input(whoAmI, board);
+            send(conn_fd, board, sizeof(board), 0);
             
             move(Y2 + 3, X1 - 2);
             clrtoeol();
@@ -250,8 +251,6 @@ void play(int conn_fd, char whoAmI) {
             move(Y_MID, X_MID);
             refresh();
             
-            send(conn_fd, board, sizeof(board), 0);
-            
         } while (1);
     }
     // play as client
@@ -259,6 +258,7 @@ void play(int conn_fd, char whoAmI) {
         do {
             // send client move
             get_input(whoAmI, board);
+            send(conn_fd, board, sizeof(board), 0);
             
             move(Y2 + 3, X1 - 2);
             clrtoeol();
@@ -267,8 +267,6 @@ void play(int conn_fd, char whoAmI) {
             printw("Server's turn!");
             move(Y_MID, X_MID);
             refresh();
-            
-            send(conn_fd, board, sizeof(board), 0);
             
             // receive server move
             receive_move(conn_fd, board);
