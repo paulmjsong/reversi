@@ -135,16 +135,16 @@ void make_move(char whoAmI, char board[8][8]) {
     while (!finished && (c = getch())) {
         switch (c) {
             case KEY_UP:
-                if (y > Y1 + 1) y--;
+                if (y > Y1) y--;
                 break;
             case KEY_DOWN:
-                if (y < Y2 - 1) y++;
+                if (y < Y2) y++;
                 break;
             case KEY_LEFT:
-                if (x > X1 + 2) x -= 2;
+                if (x > X1) x -= 2;
                 break;
             case KEY_RIGHT:
-                if (x < X2 - 2) x += 2;
+                if (x < X2) x += 2;
                 break;
             case ' ':
                 if (is_legal_move(y, x, whoAmI, board)) {
@@ -177,7 +177,7 @@ void play(int conn_fd, char whoAmI) {
     init_screen();
     
     move(Y1 - 3, X1 - 2);
-    printw("!  R E V E R S I  !");
+    printw("   R E V E R S I   ");
     
     move(Y1, X2 + 5);
     printw("Client's turn!");
@@ -202,6 +202,7 @@ void play(int conn_fd, char whoAmI) {
             move(Y1, X2 + 5);
             clrtoeol();
             printw("Server's turn!");
+            move(Y_MID, X_MID);
             refresh();
             
             // send server move
@@ -211,6 +212,7 @@ void play(int conn_fd, char whoAmI) {
             move(Y1, X2 + 5);
             clrtoeol();
             printw("Client's turn!");
+            move(Y_MID, X_MID);
             refresh();
             
         } while (1);
@@ -225,6 +227,7 @@ void play(int conn_fd, char whoAmI) {
             move(Y1, X2 + 5);
             clrtoeol();
             printw("Server's turn!");
+            move(Y_MID, X_MID);
             refresh();
             
             // receive server move
@@ -233,7 +236,7 @@ void play(int conn_fd, char whoAmI) {
             move(Y1, X2 + 5);
             clrtoeol();
             printw("Client's turn!");
-            
+            move(Y_MID, X_MID);
             refresh();
             
         } while (1);
