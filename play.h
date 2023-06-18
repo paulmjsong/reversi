@@ -3,7 +3,7 @@
 #include <ctype.h>
 #include <ncurses.h>
 
-#define Y1 4
+#define Y1 3
 #define X1 5
 #define Y2 (Y1 + 7)
 #define X2 (X1 + 7 * 2)
@@ -210,7 +210,7 @@ void play(int conn_fd, char whoAmI) {
     // setup game
     init_screen();
     
-    move(Y1 - 3, X1 - 2);
+    move(Y1 - 2, X1 - 2);
     printw("      REVERSI      ");
     
     move(Y1, X2 + 5);
