@@ -102,7 +102,7 @@ int is_legal_move(int y, int x, char ch, char board[8][8]) {
                 cy += dy;
                 cx += dx;
             }
-            if (flipped == 1) return 1
+            if (flipped == 1) return 1;
         }
     }
     return 0;
