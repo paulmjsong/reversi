@@ -1,13 +1,17 @@
 .PHONY: all
 all: reversi
 
-reversi: reversi.o
-	gcc reversi.o -lncurses -o reversi
+reversi: main.o
+	gcc -o reversi play.o main.o -lncurses
 
-reversi.o: reversi.c
-	gcc -g -c reversi.c -o reversi.o
+main.o: main.c header.h
+	gcc -g -c main.c -o main.o
+
+play.o: play.c header.h
+	gcc -g -c play.c -o play.o
 
 .PHONY: clean
 clean:
 	rm -rf reversi
-	rm -rf reversi.o
+	rm -rf main.o
+	rm -rf play.o
