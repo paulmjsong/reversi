@@ -209,6 +209,8 @@ void play(int conn_fd, char whoAmI) {
             make_move(whoAmI, board);
             send(conn_fd, board, sizeof(board), 0);
             
+            move(Y2 + 3, X1 - 2);
+            clrtoeol();
             move(Y1, X2 + 5);
             clrtoeol();
             printw("Client's turn!");
@@ -224,6 +226,8 @@ void play(int conn_fd, char whoAmI) {
             make_move(whoAmI, board);
             send(conn_fd, board, sizeof(board), 0);
             
+            move(Y2 + 3, X1 - 2);
+            clrtoeol();
             move(Y1, X2 + 5);
             clrtoeol();
             printw("Server's turn!");
