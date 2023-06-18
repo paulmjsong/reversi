@@ -96,16 +96,16 @@ int is_legal_move(int y, int x, char ch, char board[8][8]) {
             int cy = y + dy;
             int cx = x + dx;
             int flipped = 0;
+            
+            if (board[cy - Y1][(cx - X1) / 2] == ch)
+                return 0;
 
             while (cy >= Y1 && cy <= Y2 && cx >= X1 && cx <= X2 && board[cy - Y1][(cx - X1) / 2] != '.') {
-                if (board[cy - Y1][(cx - X1) / 2] == ch) {
-                    flipped = 1;
-                    break;
-                }
+                if (board[cy - Y1][(cx - X1) / 2] == ch)
+                    return 1;
                 cy += dy;
                 cx += dx;
             }
-            if (flipped) return 1;
         }
     }
     return 0;
