@@ -26,9 +26,13 @@ void init_screen(void) {
     cbreak() ;
     keypad(stdscr, TRUE) ;
     curs_set(2) ;
+    
+    start_color();
+    init_pair(1, COLOR_BLUE, COLOR_BLACK);
 }
 
 void cleanup_screen(void) {
+    attrset(0);
     endwin();
 }
 
@@ -58,26 +62,19 @@ void init_board(char board[8][8]) {
 }
 
 void print_board(char board[8][8]) {
-//    start_color();
-//    init_pair(1, COLOR_BLUE, COLOR_BLACK);
-//    init_pair(2, COLOR_WHITE, COLOR_BLACK);
-    
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 8; j++) {
             if (board[i][j] == '.') {
                 mvaddch(Y1 + i, X1 + j * 2, '.');
             } else if (board[i][j] == 'b') {
-//                attron(COLOR_PAIR(1));
+                attron(COLOR_PAIR(1));
                 mvaddch(Y1 + i, X1 + j * 2, 'b');
+                attroff(COLOR_PAIR(1));
             } else {
-//                attron(COLOR_PAIR(2));
                 mvaddch(Y1 + i, X1 + j * 2, 'w');
             }
         }
     }
-//    attroff(COLOR_PAIR(1));
-//    attroff(COLOR_PAIR(2));
-    
     rectangle(Y1 - 1, X1 - 2, Y2 + 1, X2 + 2);
 }
 
@@ -211,10 +208,14 @@ void play(int conn_fd, char whoAmI) {
     init_screen();
     
     move(Y1 - 3, X1 - 2);
-    printw("   R E V E R S I   ");
+    printw("      REVERSI      ");
     
     move(Y1, X2 + 5);
+    
+    // attron(COLOR_PAIR(2));
     printw("Client's turn!");
+    // attroff(COLOR_PAIR(2));
+    
     move(Y1 + 2, X2 + 5);
     printw("press <space> to place disk");
     move(Y1 + 4, X2 + 5);
@@ -235,7 +236,11 @@ void play(int conn_fd, char whoAmI) {
             
             move(Y1, X2 + 5);
             clrtoeol();
+            
+            attron(COLOR_PAIR(1));
             printw("Server's turn!");
+            attroff(COLOR_PAIR(1));
+            
             move(Y_MID, X_MID);
             refresh();
             
@@ -247,7 +252,11 @@ void play(int conn_fd, char whoAmI) {
             clrtoeol();
             move(Y1, X2 + 5);
             clrtoeol();
+            
+            // attron(COLOR_PAIR(2));
             printw("Client's turn!");
+            // attroff(COLOR_PAIR(2));
+            
             move(Y_MID, X_MID);
             refresh();
             
@@ -264,7 +273,11 @@ void play(int conn_fd, char whoAmI) {
             clrtoeol();
             move(Y1, X2 + 5);
             clrtoeol();
+            
+            attron(COLOR_PAIR(1));
             printw("Server's turn!");
+            attroff(COLOR_PAIR(1));
+            
             move(Y_MID, X_MID);
             refresh();
             
@@ -273,7 +286,11 @@ void play(int conn_fd, char whoAmI) {
             
             move(Y1, X2 + 5);
             clrtoeol();
+            
+            // attron(COLOR_PAIR(2));
             printw("Client's turn!");
+            // attroff(COLOR_PAIR(2));
+            
             move(Y_MID, X_MID);
             refresh();
             
