@@ -7,22 +7,6 @@
 #include <linux/socket.h>
 
 
-/* ------ PLAY ------ */
-
-void init_screen(void);
-void cleanup_screen(void);
-
-void rectangle(int y1, int x1, int y2, int x2);
-void init_board(char board[8][8]);
-void print_board(char board[8][8]);
-
-int is_legal_move(int y, int x, char ch, char board[8][8]);
-void make_move(int y, int x, char ch, char board[8][8]);
-void receive_move(int conn_fd, char board[8][8]);
-void get_input(char whoAmI, char board[8][8]);
-
-void play(int conn_fd, char whoAmI);
-
 /* ------ SERVER ------ */
 
 int listen_at_port (int portnum) 

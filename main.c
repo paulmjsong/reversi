@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <ncurses.h>
 #include "header.h"
+#include "play.h"
 
 
 int main(int argc, char * argv[]) {
