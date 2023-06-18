@@ -157,6 +157,7 @@ void make_move(char whoAmI, char board[8][8]) {
                 }
                 break;
             case 'q':
+                cleanup_screen();
                 exit(1);
             default:
                 move(Y2 + 3, X1 - 2);
