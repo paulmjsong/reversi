@@ -1,11 +1,11 @@
 .PHONY: all
 all: reversi
 
-reversi: reversi.o
-	gcc reversi.o -o reversi
+reversi: reversi.c
+	gcc reversi.c -o reversi
 
 reversi.o: reversi.c
-	gcc -g -c reversi.c -o reversi.o
+	gcc -g -c reversi.c -lncurses -o reversi.o
 
 .PHONY: clean
 clean:
